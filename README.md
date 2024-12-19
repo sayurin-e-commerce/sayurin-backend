@@ -13,7 +13,7 @@ Web application e-commerce jual beli sayur adalah platform digital yang memungki
 
 ## Developer
 
-<a href="https://github.com/surinanda99">Surinanda</a>
+<a href="https://github.com/surinanda99">Surinanda</a> ||
 <a href="https://github.com/Hypes-Astro">Alif Anwar</a>
 
 ## Setup
