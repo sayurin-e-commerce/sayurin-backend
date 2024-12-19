@@ -32,3 +32,6 @@ DB_PORT=3306
 DB_DATABASE=sayurin-api
 DB_USERNAME=root
 DB_PASSWORD=
+
+
+# Tolong istirahat, sehat selalu 👋🏻
