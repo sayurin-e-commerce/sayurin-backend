@@ -35,3 +35,4 @@ DB_PASSWORD=
 
 
 # Tolong istirahat, sehat selalu 👋🏻
+# wkwk nggeh
