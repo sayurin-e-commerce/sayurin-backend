@@ -32,10 +32,10 @@ class AuthController extends Controller
         }
 
         // Cek jika adminToko sudah ada
-        $adminExists = User::where('role', 'adminToko')->exists();
+        $adminExists = User::where('role', 'admin')->exists();
 
         // Tetapkan role berdasarkan kondisi
-        $role = $adminExists ? 'konsumen' : 'adminToko';
+        $role = $adminExists ? 'konsumen' : 'admin';
 
         // Buat user baru
         $user = User::create([
@@ -51,7 +51,7 @@ class AuthController extends Controller
         return response()->json([
             'data' => [
                 'id' => $user->id,
-                'name' => $user->username,
+                'username' => $user->username,
                 'email' => $user->email,
                 'role' => $user->role,
             ],
@@ -99,7 +99,7 @@ class AuthController extends Controller
         return response()->json([
             'data' => [
                 'id' => $user->id,
-                'name' => $user->username,
+                'username' => $user->username,
                 'email' => $user->email,
             ],
             'token' => $token,
