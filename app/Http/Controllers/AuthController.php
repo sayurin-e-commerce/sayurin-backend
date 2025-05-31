@@ -10,14 +10,14 @@ use Firebase\JWT\JWT;
 
 class AuthController extends Controller
 {
-
     public function register(Request $request)
     {
-        // Validasi input
+        // Validasi input termasuk role
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8',
+            'role' => 'required|in:admin,penjual,konsumen', // ← role dipilih user
         ]);
 
         if ($validator->fails()) {
@@ -31,18 +31,12 @@ class AuthController extends Controller
             ], 400);
         }
 
-        // Cek jika adminToko sudah ada
-        $adminExists = User::where('role', 'admin')->exists();
-
-        // Tetapkan role berdasarkan kondisi
-        $role = $adminExists ? 'konsumen' : 'admin';
-
-        // Buat user baru
+        // Buat user baru dengan role dari request
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $role, // Role otomatis ditetapkan
+            'role' => $request->role,
         ]);
 
         // Generate JWT token
@@ -101,20 +95,20 @@ class AuthController extends Controller
                 'id' => $user->id,
                 'username' => $user->username,
                 'email' => $user->email,
+                'role' => $user->role,
             ],
             'token' => $token,
             'meta' => [
                 'status_code' => 200,
                 'success' => true,
                 'message' => 'Success Login',
-                'pagination' => new \stdClass(), // Kosongkan pagination untuk saat ini
+                'pagination' => new \stdClass(),
             ],
         ], 200);
     }
 
     public function logout(Request $request)
     {
-        // Untuk JWT, logout biasanya hanya melibatkan penghapusan token di frontend
         return response()->json([
             'meta' => [
                 'status_code' => 200,
@@ -123,7 +117,6 @@ class AuthController extends Controller
             ],
         ], 200);
     }
-
 
     private function generateJWT($user)
     {
