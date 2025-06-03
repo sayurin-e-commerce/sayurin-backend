@@ -24,7 +24,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
 
-Route::get('/posts',[UserController::class, 'index']);
-Route::post('/users', [UserController::class, 'store']);
+Route::get('/getAllUser',[UserController::class, 'index']);
+Route::post('/addUsers', [UserController::class, 'store']);
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
