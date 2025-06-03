@@ -121,7 +121,7 @@ class AuthController extends Controller
     private function generateJWT($user)
     {
         $payload = [
-            'iss' => "your-app-name",
+            'iss' => "sayurin-backend",
             'sub' => $user->id,
             'role' => $user->role,
             'iat' => time(),
@@ -130,4 +130,6 @@ class AuthController extends Controller
 
         return JWT::encode($payload, env('JWT_SECRET'), 'HS256');
     }
+
+    
 }
