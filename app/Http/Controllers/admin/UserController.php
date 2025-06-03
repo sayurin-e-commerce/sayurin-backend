@@ -19,6 +19,8 @@ class UserController extends Controller
             $users = User::all();
             return response()->json([
                 'meta' => [
+                    'status_code' => 200,
+                    'success' => true,
                     'message' => 'All user ada yuhuu'
                 ],
                 'data' => $users
@@ -26,10 +28,12 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'meta' => [
+                    'status_code' => 500,
+                    'success' => false,
                     'message' => 'wuuu',
                     'error' => $e->getMessage()
                 ]
-            ]); 
+            ],500); 
         }
     }
 
@@ -42,25 +46,31 @@ class UserController extends Controller
         $user = User::create($validatedData);
         return response()->json([
                 'meta' => [
+                    'status_code' => 201,
+                    'success' => true,
                     'message' => 'User nambah yeay'
                 ],
                 'data' => $user
-            ]);
+            ],201);
 
         } catch (ValidationException $e) {
             return response()->json([
                 'meta' => [
+                    'status_code' => 422,
+                    'success' => false,
                     'message' => 'GAGALL KOCAK',
                     'errors' => $e->errors()
                 ]
-            ]);
+            ],422);
         } catch (\Exception $e) {
             return response()->json([
                 'meta' => [
+                    'status_code' => 500,
+                    'success' => false,
                     'message' => 'keknya ada yang salah',
                     'error' => $e->getMessage()
                 ]
-            ]);
+            ],500);
         }
     }
 
@@ -69,6 +79,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
             return response()->json([
                 'meta' => [
+                     'status_code' => 200,
+                    'success' => true,
                     'message' => 'User ada yuhuu'
                 ],
                 'data' => $user
@@ -76,9 +88,11 @@ class UserController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'meta' => [
+                    'status_code' => 404,
+                    'success' => false,
                     'message' => 'gada usernya tuh'
                 ]
-            ]);
+            ],404);
        }
     }
 
@@ -90,22 +104,21 @@ class UserController extends Controller
             
             return response()->json([
                 'meta' => [
+                    'status_code' => 200,
+                    'success' => true,
                     'message' => 'babay user'
                 ]
             ]);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'meta' => [
-                    'message' => 'User gada'
-                ]
-            ]);
+        
         } catch (\Exception $e) {
             return response()->json([
                 'meta' => [
+                    'status_code' => 500,
+                    'success' => false,
                     'message' => 'yahaha failed',
                     'error' => $e->getMessage()
                 ]
-            ]);
+            ],500);
         }
     }
 
