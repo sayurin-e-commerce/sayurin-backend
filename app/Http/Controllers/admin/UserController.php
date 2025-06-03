@@ -6,14 +6,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    public function index()
+    public function getAllUser()
     {
         try {
             $users = User::all();
@@ -37,7 +36,7 @@ class UserController extends Controller
         }
     }
 
-    public function store(Request $request) {
+    public function addUser(Request $request) {
         try {
             
         $validatedData = $this->validateUser($request);
@@ -74,7 +73,7 @@ class UserController extends Controller
         }
     }
 
-    public function show($id){
+    public function getOneUser($id){
        try {
         $user = User::findOrFail($id);
             return response()->json([
@@ -96,7 +95,7 @@ class UserController extends Controller
        }
     }
 
-    public function destroy($id){
+    public function deleteUser($id){
         try {
             $user = User::findOrFail($id);
             $user->delete();
