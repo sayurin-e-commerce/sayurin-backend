@@ -99,7 +99,6 @@ class UserController extends Controller
     public function destroy($id){
         try {
             $user = User::findOrFail($id);
-            $abc = $user->this_does_not_exist;
             $user->delete();
             
             return response()->json([
